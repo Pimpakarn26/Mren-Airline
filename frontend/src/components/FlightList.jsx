@@ -3,18 +3,31 @@ import axios from "axios";
 
 const FlightList = () => {
   const [flights, setFlights] = useState([]);
+  const [error, setError] = useState(null); // To store the error message
 
   useEffect(() => {
     const fetchFlights = async () => {
       try {
         const response = await axios.get("/api/flights");
-        setFlights(response.data.flights);
+
+        // Ensure that the response has flights data
+        if (response.data && Array.isArray(response.data.flights)) {
+          setFlights(response.data.flights);
+        } else {
+          setError("No flights available.");
+        }
       } catch (error) {
         console.error("Error fetching flights:", error);
+        setError("Failed to load flights. Please try again.");
       }
     };
+
     fetchFlights();
   }, []);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <div>
