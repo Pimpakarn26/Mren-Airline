@@ -11,7 +11,8 @@ function App() {
       {/* Public Routes */}
       <Route path="/signin" element={<Login />} />
       <Route path="/signup" element={<SignupForm />} />
-      <Route path="/flights" element={<FlightList />} />
+      <Route path="/" element={<FlightList />} /> {/* This is the root route */}
+      <Route path="/flight" element={<FlightList />} />
       <Route path="/create-flight" element={<CreateFlight />} />
     </Routes>
   );
